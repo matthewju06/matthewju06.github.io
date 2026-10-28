@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo_Black, Bodoni_Moda, Figtree, Newsreader } from "next/font/google";
 import "./globals.css";
 
@@ -29,6 +29,11 @@ export const metadata: Metadata = {
   title: "Matthew Ju",
   description:
     "Computer Science and Statistics student at UIUC. Backend systems, data tools, and software engineering.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

@@ -65,7 +65,6 @@ const steps: GrooveStep[] = [
     id: project.id ?? project.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     track: "projects" as const,
     title: project.name,
-    meta: project.date,
     stack: project.stack,
     paragraphs: project.paragraphs,
     links: project.links,
@@ -124,7 +123,6 @@ function GrooveCut({
 
   return (
     <article
-      id={live ? step.id : undefined}
       aria-live={live ? "polite" : undefined}
       className="absolute top-[68%] left-1/2 w-[38%] -translate-x-1/2 font-serif text-paper [text-shadow:0_1px_2px_rgba(0,0,0,0.9)] sm:top-1/2 sm:left-[67%] sm:w-[22%] sm:translate-x-0 sm:-translate-y-1/2"
     >
@@ -424,11 +422,25 @@ export function Portfolio() {
   }
 
   useEffect(() => {
+    history.scrollRestoration = "manual";
+    const lockScroll = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      if (rootRef.current) rootRef.current.scrollTop = 0;
+    };
+    lockScroll();
     const hash = window.location.hash.replace(/^#/, "");
     const found = hash ? findStep(hash) : -1;
     if (found > 0) snap(found);
     else paint();
-    return () => window.clearTimeout(frameRef.current);
+    window.addEventListener("pageshow", lockScroll);
+    window.addEventListener("hashchange", lockScroll);
+    return () => {
+      window.clearTimeout(frameRef.current);
+      window.removeEventListener("pageshow", lockScroll);
+      window.removeEventListener("hashchange", lockScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -441,10 +453,12 @@ export function Portfolio() {
     if (!root) return;
 
     let wheelTimer = 0;
+    let touchX = 0;
     let touchY = 0;
     const onWheel = (event: WheelEvent) => {
       event.preventDefault();
-      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      const vertical = Math.abs(event.deltaY) >= Math.abs(event.deltaX);
+      const delta = vertical ? event.deltaY : -event.deltaX;
       if (delta === 0) return;
       nudge(delta * 0.085);
       window.clearTimeout(wheelTimer);
@@ -461,15 +475,21 @@ export function Portfolio() {
     };
     const onTouchStart = (event: TouchEvent) => {
       if (modeRef.current === "turn" || modeRef.current === "enter") return;
+      touchX = event.touches[0]?.clientX ?? 0;
       touchY = event.touches[0]?.clientY ?? 0;
       stopSpring();
       modeRef.current = "drag";
     };
     const onTouchMove = (event: TouchEvent) => {
       if (modeRef.current === "turn" || modeRef.current === "enter") return;
+      const x = event.touches[0]?.clientX ?? touchX;
       const y = event.touches[0]?.clientY ?? touchY;
-      const delta = touchY - y;
+      const up = touchY - y;
+      const right = x - touchX;
+      const delta = Math.abs(up) >= Math.abs(right) ? up : right;
+      touchX = x;
       touchY = y;
+      if (delta === 0) return;
       nudge(delta * 0.18);
     };
     const onTouchEnd = () => release();
@@ -536,7 +556,14 @@ export function Portfolio() {
   );
 
   return (
-    <div ref={rootRef} className="wood fixed inset-0 overflow-hidden">
+    <div ref={rootRef} className="wood fixed inset-0 touch-none overflow-clip">
+      {[...new Set([...tracks.map((track) => track.id), ...steps.map((step) => step.id)])].map((id) => (
+        <span
+          key={id}
+          id={id}
+          className="pointer-events-none absolute top-0 left-0 h-px w-px overflow-clip"
+        />
+      ))}
       <div className="deck-side plinth absolute top-1/2 right-7 z-40 w-36 -translate-y-1/2 flex-col gap-4">
         <nav aria-label="Tracks" className="flex flex-col gap-2">
           {trackLinks("deck px-3 py-2 text-left text-xs tracking-wide")}
@@ -565,7 +592,7 @@ export function Portfolio() {
         <div className="flex gap-2">{transport("deck min-w-16 px-3 py-2 text-sm")}</div>
       </div>
 
-      <div className="absolute top-[32%] left-1/2 h-[min(118vh,900px)] w-[min(118vh,900px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full sm:top-1/2 sm:left-[26%] sm:h-[min(170vh,1500px)] sm:w-[min(170vh,1500px)]">
+      <div className="absolute top-[32%] left-1/2 h-[min(118%,56.25rem)] w-[min(118%,56.25rem)] -translate-x-1/2 -translate-y-1/2 overflow-clip rounded-full sm:top-1/2 sm:left-[26%] sm:h-[min(170%,93.75rem)] sm:w-[min(170%,93.75rem)]">
         <div ref={discRef} className="absolute inset-0">
           <div className="vinyl absolute inset-0 rounded-full" />
         </div>

@@ -50,7 +50,7 @@ export const experience = [
     date: "May 2026 – Aug 2026",
     role: "Software Engineering Intern, Johnston, Iowa",
     paragraphs: [
-      "Refactored 13 ASP.NET Core controllers into a layered service architecture, adding pagination, response DTOs, Entra ID JWT auth on previously open endpoints, and a file-path traversal fix. Added 8 Playwright suites and 10+ xUnit tests as Azure DevOps predeployment gates, and rebuilt 8 Angular pages with Material, AG Grid, and MapCon status updates.",
+      "Refactored 13 ASP.NET Core controllers into a layered service architecture, adding pagination, response DTOs, Entra ID JWT auth on previously open endpoints, and a file-path traversal fix. Added 8 Playwright suites and 10+ xUnit tests as Azure DevOps predeployment gates, and rebuilt 8 Angular pages with Material, AG Grid, and new API endpoints.",
     ],
   },
   {
@@ -66,7 +66,6 @@ export const experience = [
 export const projects: {
   id?: string;
   name: string;
-  date?: string;
   stack: string;
   paragraphs: string[];
   links: SiteLink[];
@@ -89,7 +88,6 @@ export const projects: {
   },
   {
     name: "ListingLab",
-    date: "Dec 2025 – Present",
     stack: "FastAPI, Angular, PostgreSQL, Redis, Vercel",
     paragraphs: [
       "eBay price research on Vercel. Concurrent Browse API requests dedupe up to 400 listings, with Redis caching, per-IP rate limits, and a locked OAuth refresh. Tukey IQR and log-gap segmentation suggest buying ranges, and ECharts charts link to the table.",
@@ -124,7 +122,6 @@ export const projects: {
   },
   {
     name: "MCP Weather Server",
-    date: "Jan 2026",
     stack: "Python, FastMCP, Docker, Open-Meteo API",
     paragraphs: [
       "A Python MCP server for current conditions, forecasts, and alerts across 48,000+ cities.",
@@ -134,7 +131,6 @@ export const projects: {
   },
   {
     name: "Locked In Toolbox",
-    date: "Oct 2025 – Dec 2025",
     stack: "React, TypeScript, Supabase, SQL, REST APIs",
     paragraphs: [
       "A study platform that shows daily activity and tool usage in an analytics dashboard.",
@@ -154,7 +150,6 @@ export const projects: {
   },
   {
     name: "PokeNotify Auto Link Opener",
-    date: "Jul 2025",
     stack: "JavaScript, HTML/CSS",
     paragraphs: [
       "A Chrome extension that watches Discord channels and opens matching links as messages arrive.",
