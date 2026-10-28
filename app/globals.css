@@ -29,6 +29,7 @@ body {
 }
 
 .wood {
+  container-type: size;
   background-color: #5c4034;
   background-image:
     repeating-linear-gradient(

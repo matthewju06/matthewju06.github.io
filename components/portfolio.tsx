@@ -592,7 +592,7 @@ export function Portfolio() {
         <div className="flex gap-2">{transport("deck min-w-16 px-3 py-2 text-sm")}</div>
       </div>
 
-      <div className="absolute top-[32%] left-1/2 h-[min(118%,56.25rem)] w-[min(118%,56.25rem)] -translate-x-1/2 -translate-y-1/2 overflow-clip rounded-full sm:top-1/2 sm:left-[26%] sm:h-[min(170%,93.75rem)] sm:w-[min(170%,93.75rem)]">
+      <div className="absolute top-[32%] left-1/2 h-[min(118cqh,56.25rem)] w-[min(118cqh,56.25rem)] -translate-x-1/2 -translate-y-1/2 overflow-clip rounded-full sm:top-1/2 sm:left-[26%] sm:h-[min(170cqh,93.75rem)] sm:w-[min(170cqh,93.75rem)]">
         <div ref={discRef} className="absolute inset-0">
           <div className="vinyl absolute inset-0 rounded-full" />
         </div>
@@ -600,7 +600,7 @@ export function Portfolio() {
           <GrooveCut step={shown} live onJump={(id) => go(findStep(id))} />
         </div>
 
-        <div className="absolute top-1/2 left-1/2 z-20 h-[30%] w-[30%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-label text-[#f4eadf] shadow-[inset_0_0_0_1px_rgba(244,234,223,0.35)] sm:h-[26%] sm:w-[26%]">
+        <div className="absolute top-1/2 left-1/2 z-20 aspect-square h-[30%] w-[30%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-label text-[#f4eadf] shadow-[inset_0_0_0_1px_rgba(244,234,223,0.35)] sm:h-[26%] sm:w-[26%]">
           <h1 className="absolute top-[18%] left-1/2 -translate-x-1/2 scale-x-[0.58] text-center font-script text-[1.9rem] leading-none font-bold tracking-[-0.04em] whitespace-nowrap uppercase sm:text-[3.7rem]">
             Matthew Ju
           </h1>
