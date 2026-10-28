@@ -1,2 +1,3 @@
 # matthew-ju-personal-website
-Built using HTML and Tailwind CSS
+
+React site built with Next.js and Tailwind CSS. `npm run build` writes a static site to `out/`.
